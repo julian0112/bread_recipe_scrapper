@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 import time 
 import pandas as pd
@@ -12,7 +11,7 @@ service = Service(executable_path="geckodriver.exe")
 
 #Selenium options for the browser
 options = webdriver.FirefoxOptions()
-options.add_argument("-headless")
+#options.add_argument("-headless")
 
 driver = webdriver.Firefox(options=options, service=service)
 
@@ -64,7 +63,7 @@ for x in range(5):
     print(recipe_title)
 
     driver.back()
-    time.sleep(random.randint(3, 6))
+    time.sleep(random.randint(1, 3))
     
     
 # #Create data frame with the dictionary and uses it to create a csv file with the data 
