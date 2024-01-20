@@ -1,9 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 import time 
@@ -73,7 +70,7 @@ for x in range(3):
         print('Llego al final')
         
     else: 
-        print('Siguiente ->')
+        print('Next ->')
 
     time.sleep(3)
     
