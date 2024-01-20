@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 import time 
 import pandas as pd
+import random
 
 #STARTS SELENIUM
 service = Service(executable_path="geckodriver.exe")
@@ -28,14 +29,14 @@ data = {
 # #STARTS BEAUTIFUL SOUP
 
 #For loop to repeat the actions an x number of times, might be change so it ends when reaches the last recipe
-for x in range(3):
+for x in range(5):
     
-    if x == 0:
-        driver.get('https://www.tasteofhome.com/recipes/basic-homemade-bread/')
-        
-    else: 
-        driver.get(driver.current_url)
-
+    driver.get('https://www.tasteofhome.com/collection/recipes-for-homemade-bread/')
+    
+    bread = driver.find_element(By.XPATH, ('(//div[@class="listicle-page__cta-button"])['+ str(x+1) + ']'))
+    bread.click()
+    
+    driver.get(driver.current_url)
     taste_of_home_source = driver.page_source
 
     soup = BeautifulSoup(taste_of_home_source, 'lxml')
@@ -62,21 +63,13 @@ for x in range(3):
 
     print(recipe_title)
 
-    #Selenium presses the next recipe button
-    try:
-        driver.find_element(By.CLASS_NAME, 'next-recipe-link').click()
-        
-    except NoSuchElementException:
-        print('Llego al final')
-        
-    else: 
-        print('Next ->')
-
-    time.sleep(3)
+    driver.back()
+    time.sleep(random.randint(3, 6))
     
     
-#Create data frame with the dictionary and uses it to create a csv file with the data 
+# #Create data frame with the dictionary and uses it to create a csv file with the data 
 df = pd.DataFrame(data)
 df.to_csv('scraped_data.csv', index=False)
+
 
 driver.quit()
